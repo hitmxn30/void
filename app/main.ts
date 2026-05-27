@@ -10,6 +10,12 @@ const rl = createInterface({
 rl.prompt();
 
 rl.on("line", (cmd) => {
+    const command = cmd.trim();
+    if (command === 'exit') {
+        console.log('Bye!')
+        rl.close();
+        return;
+    }
     console.log(`${cmd}: command not found`)
     rl.prompt();
 });
