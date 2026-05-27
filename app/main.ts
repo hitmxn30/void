@@ -10,12 +10,20 @@ const rl = createInterface({
 rl.prompt();
 
 rl.on("line", (cmd) => {
-    const command = cmd.split(" ")[0].trim();
+    const trimmed = cmd.trim();
+    const command = trimmed.split(" ")[0];
+    const rest = trimmed.slice(command.length).trim();
+    const args = trimmed.split(' ').slice(1).filter(arg => arg !== '')
+
     if (command === 'exit') {
         console.log('Bye!')
         rl.close();
         return;
     }
-    console.log(`${cmd}: command not found`)
+    else if (command === 'echo') {
+        console.log(rest)
+    } else {
+        console.log(`${command}: command not found`);
+    }
     rl.prompt();
 });
