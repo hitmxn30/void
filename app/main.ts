@@ -10,7 +10,7 @@ const rl = createInterface({
 rl.prompt();
 
 rl.on("line", (cmd) => {
-    const command = cmd.trim();
+    const command = cmd.split(" ")[0].trim();
     if (command === 'exit') {
         console.log('Bye!')
         rl.close();
