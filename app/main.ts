@@ -5,3 +5,6 @@ const rl = createInterface({
     output: process.stdout,
     prompt: "$ ",
 });
+
+
+rl.prompt()
