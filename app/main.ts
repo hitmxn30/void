@@ -11,4 +11,5 @@ rl.prompt();
 
 rl.on("line", (cmd) => {
     console.log(`${cmd}: command not found`)
+    rl.prompt();
 });
