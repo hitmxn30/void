@@ -7,4 +7,8 @@ const rl = createInterface({
 });
 
 
-rl.prompt()
+rl.prompt();
+
+rl.on("line", (cmd) => {
+    console.log(`${cmd}: command not found`)
+});
