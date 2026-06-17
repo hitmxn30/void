@@ -1,5 +1,6 @@
 import { createInterface } from "readline";
-import which from 'which'
+import { findExecutable } from "./utils";
+import { spawnSync } from "child_process";
 
 enum BuiltIn {
     ECHO = 'echo',
@@ -36,13 +37,15 @@ rl.on("line", (cmd) => {
         if (BuiltIns.has(rest)) {
             console.log(`${rest} is a shell builtin`)
         } else {
-            const result = which.sync(rest, { nothrow: true });
+            const result = findExecutable(rest)
             if (result) {
                 console.log(`${rest} is ${result}`)
             } else {
                 console.log(`${rest}: not found`)
             }
         }
+    } else if (findExecutable(command)) {
+        spawnSync(command, args, { stdio: 'inherit' })
     }
     else {
         console.log(`${command}: command not found`);
