@@ -1,4 +1,5 @@
 import { createInterface } from "readline";
+import which from 'which'
 
 enum BuiltIn {
     ECHO = 'echo',
@@ -35,7 +36,12 @@ rl.on("line", (cmd) => {
         if (BuiltIns.has(rest)) {
             console.log(`${rest} is a shell builtin`)
         } else {
-            console.log(`${rest}: not found`)
+            const result = which.sync(rest, { nothrow: true });
+            if (result) {
+                console.log(`${rest} is ${result}`)
+            } else {
+                console.log(`${rest}: not found`)
+            }
         }
     }
     else {
