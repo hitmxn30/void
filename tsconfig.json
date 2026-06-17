@@ -20,7 +20,7 @@
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "types": [
-      "bun-types"
+      "node"
     ],
     // Some stricter flags (disabled by default)
     "noUnusedLocals": false,
