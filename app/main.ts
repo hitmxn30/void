@@ -5,7 +5,8 @@ import { spawnSync } from "child_process";
 enum BuiltIn {
     ECHO = 'echo',
     EXIT = 'exit',
-    TYPE = 'type'
+    TYPE = 'type',
+    PWD = 'pwd'
 }
 
 const BuiltIns = new Set<string>(Object.values(BuiltIn))
@@ -46,6 +47,8 @@ rl.on("line", (cmd) => {
         }
     } else if (findExecutable(command)) {
         spawnSync(command, args, { stdio: 'inherit' })
+    } else if (command === BuiltIn.PWD) {
+        console.log(process.cwd())
     }
     else {
         console.log(`${command}: command not found`);
