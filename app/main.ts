@@ -1,12 +1,14 @@
 import { createInterface } from "readline";
 import { findExecutable } from "./utils";
 import { spawnSync } from "child_process";
+import fs from 'fs';
 
 enum BuiltIn {
     ECHO = 'echo',
     EXIT = 'exit',
     TYPE = 'type',
-    PWD = 'pwd'
+    PWD = 'pwd',
+    CD = 'cd'
 }
 
 const BuiltIns = new Set<string>(Object.values(BuiltIn))
@@ -47,6 +49,14 @@ rl.on("line", (cmd) => {
         }
     } else if (command === BuiltIn.PWD) {
         console.log(process.cwd())
+    } else if (command === BuiltIn.CD) {
+        const dirPath = args[0];
+        const exists = fs.existsSync(dirPath);
+        if (exists) {
+            process.chdir(dirPath);
+        } else {
+            console.log(`cd: ${dirPath}: No such file or directory`);
+        }
     }
     else if (findExecutable(command)) {
         spawnSync(command, args, { stdio: 'inherit' })
