@@ -50,7 +50,8 @@ rl.on("line", (cmd) => {
     } else if (command === BuiltIn.PWD) {
         console.log(process.cwd())
     } else if (command === BuiltIn.CD) {
-        const dirPath = args[0];
+        const homePath = process.env.HOME as string;
+        const dirPath = args[0] === '~' ? homePath : args[0];
         const exists = fs.existsSync(dirPath);
         if (exists) {
             process.chdir(dirPath);
