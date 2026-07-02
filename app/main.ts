@@ -45,10 +45,11 @@ rl.on("line", (cmd) => {
                 console.log(`${rest}: not found`)
             }
         }
-    } else if (findExecutable(command)) {
-        spawnSync(command, args, { stdio: 'inherit' })
     } else if (command === BuiltIn.PWD) {
         console.log(process.cwd())
+    }
+    else if (findExecutable(command)) {
+        spawnSync(command, args, { stdio: 'inherit' })
     }
     else {
         console.log(`${command}: command not found`);
